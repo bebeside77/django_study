@@ -1,4 +1,11 @@
-<h1>Blog List</h1>
+{% extends "base.html" %}
+
+{% block title %}post_all.html{% endblock %}
+
+{% block content %}
+<div id="content">
+
+    <h1>Post List</h1>
 
 {% for post in posts %}
     <h2><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h2>
@@ -21,3 +28,6 @@
         {% endif %}
     </span>
 </div>
+
+</div>
+{% endblock content %}

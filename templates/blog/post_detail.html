@@ -1,18 +1,29 @@
-<h2>{{ object.title }}</h2>
+{% extends "base.html" %}
 
-<p class="other_posts">
-    {% if object.get_previous_by_modify_date %}
-        <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post">&laquo;--{{ object.get_previous_post }}</a>
-    {% endif %}
+{% block title %}post_detail.html{% endblock %}
 
-    {% if object.get_next_by_modify_date %}
-        <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">--&raquo;{{ object.get_next_post }}</a>
-    {% endif %}
-</p>
+{% block content %}
 
-<p class="date">{{ object.modify_date|date:"j F Y" }}</p>
-<br/>
+<div id="content">
 
-<div class="body">
-    {{ object.content|linebreaks }}
+    <h2>{{ object.title }}</h2>
+
+    <p class="other_posts">
+        {% if object.get_previous_by_modify_date %}
+            <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post">&laquo;--{{ object.get_previous_post }}</a>
+        {% endif %}
+
+        {% if object.get_next_by_modify_date %}
+            <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">--&raquo;{{ object.get_next_post }}</a>
+        {% endif %}
+    </p>
+
+    <p class="date">{{ object.modify_date|date:"j F Y" }}</p>
+    <br/>
+
+    <div class="body">
+        {{ object.content|linebreaks }}
+    </div>
+
 </div>
+{% endblock content %}

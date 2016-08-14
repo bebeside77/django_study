@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from blog.views import PostLV, PostDV, PostAV, PostYAV, PostMAV, PostDAV, PostTAV
-
+from blog.views import PostLV, PostDV, PostAV, PostYAV, PostMAV, PostDAV, PostTAV, TagTV, PostTOL
 
 urlpatterns = [
     # Example: /
@@ -42,4 +41,13 @@ urlpatterns = [
 
     # Example: /today/
     url(r'^today/$', PostTAV.as_view(), name='post_today_archive'),
+
+    # Example: /tag/
+    url(r'^tag/$', TagTV.as_view(), name='tag_cloud'),
+
+    # Example: /tag/tagname/
+    url(r'^tag/(?P<tag>[^/]+(?u))/$', PostTOL.as_view(), name='tagged_object_list'),
+
+    # Example: /search/
+    url(r'^search/$', SearchFormView.as_view(), name='search'),
 ]

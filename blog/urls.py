@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from blog.views import PostLV, PostDV, PostAV, PostYAV, PostMAV, PostDAV, PostTAV, TagTV, PostTOL
+from blog.views import PostLV, PostDV, PostAV, PostYAV, PostMAV, PostDAV, PostTAV, TagTV, PostTOL, SearchFormView
 
 urlpatterns = [
     # Example: /

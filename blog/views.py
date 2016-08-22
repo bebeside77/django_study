@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, ArchiveIndexView, YearArchiveView, MonthArchiveView, \
     DayArchiveView, TodayArchiveView, TemplateView, FormView
 from tagging.views import TaggedObjectList
+from django.db.models import Q
 
 from blog.forms import PostSearchForm
 from blog.models import Post

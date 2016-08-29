@@ -23,6 +23,8 @@ class ThumbnailImageFieldFile(ImageFieldFile):
     def _get_thumb_url(self):  # 썸네일 url 주소를 가져옴
         return _add_thumb(self.url)
 
+    thumb_url = property(_get_thumb_url)
+
     def save(self, name, content, save=True):  # 파일 시스템에 파일 저장
         super(ThumbnailImageFieldFile, self).save(name, content, save)
         img = Image.open(self.path)

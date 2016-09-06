@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', # 로그인 관련
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -132,3 +132,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#LOGIN_URL = '/accounts/login/' # 로그인 필요 시 로그인 페이지로 리다이렉트 할 때 사용하는 URL
+#LOGOUT_URL = '/accounts/logout/'   # 로그아웃 시킬 때 사용하는 URL
+LOGIN_REDIRECT_URL = '/'    # 로그인 처리 성공 후 next 파라미터로 지정한 URL이 없는 경우, 이 URL로 리다이렉트 시킨다.

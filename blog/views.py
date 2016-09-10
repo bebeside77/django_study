@@ -3,9 +3,12 @@ from django.views.generic import ListView, DetailView, ArchiveIndexView, YearArc
     DayArchiveView, TodayArchiveView, TemplateView, FormView
 from tagging.views import TaggedObjectList
 from django.db.models import Q
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 
 from blog.forms import PostSearchForm
 from blog.models import Post
+from mysite.views import LoginRequireMixin
 
 
 class PostLV(ListView):
@@ -68,6 +71,36 @@ class SearchFormView(FormView):
         context['search_term'] = schWord
         context['object_list'] = post_list
 
-        return render(self.request, self.template_name, context)
+        return render(self.request, self.template_name, context) # No Redirection
+
+
+class PostCreateView(LoginRequireMixin, CreateView):
+    model = Post
+    fields = ['title', 'slug', 'description', 'content', 'tag']
+    initial = {'slug': 'auto-filling-do-not-input'}
+    success_url = reverse_lazy('blog:index')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user # set login user info
+        return super(PostCreateView, self).form_valid(form)
+
+
+class PostChangeLV(LoginRequireMixin, ListView):
+    template_name = 'blog/post_change_list.html'
+
+    def get_queryset(self):
+        return Post.objects.filter(owner=self.requet.user) # filter login user's post
+
+
+class PostUpdateView(LoginRequireMixin, UpdateView):
+    model = Post
+    fields = ['title', 'slug', 'description', 'content', 'tag']
+    success_url = reverse_lazy('blog:index')
+
+
+class PostDeleteView(LoginRequireMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('blog:index')
+
 
 

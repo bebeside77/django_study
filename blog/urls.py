@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from blog.views import PostLV, PostDV, PostAV, PostYAV, PostMAV, PostDAV, PostTAV, TagTV, PostTOL, SearchFormView
+from blog.views import *
 
 urlpatterns = [
     # Example: /
@@ -50,4 +50,17 @@ urlpatterns = [
 
     # Example: /search/
     url(r'^search/$', SearchFormView.as_view(), name='search'),
+
+    # /add/
+    url(r'^add/$', PostCreateView.as_view(), name='add'),
+
+    # /change/
+    url(r'^change/$', PostChangeLV.as_view(), name='change'),
+
+    # /99/update/
+    url(r'^(?P<pk>[0-9]+)/update/$', PostUpdateView.as_view(), name='update'),
+
+    # /99/delete/
+    url(r'^(?<pk>[0-9]+)/delete/$', PostDeleteView.as_view(), name='delete'),
+
 ]

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from blog.forms import PostSearchForm
 from blog.models import Post
-from mysite.views import LoginRequireMixin
+from mysite.views import LoginRequiredMixin
 
 
 class PostLV(ListView):
@@ -74,7 +74,7 @@ class SearchFormView(FormView):
         return render(self.request, self.template_name, context) # No Redirection
 
 
-class PostCreateView(LoginRequireMixin, CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'slug', 'description', 'content', 'tag']
     initial = {'slug': 'auto-filling-do-not-input'}
@@ -85,20 +85,20 @@ class PostCreateView(LoginRequireMixin, CreateView):
         return super(PostCreateView, self).form_valid(form)
 
 
-class PostChangeLV(LoginRequireMixin, ListView):
+class PostChangeLV(LoginRequiredMixin, ListView):
     template_name = 'blog/post_change_list.html'
 
     def get_queryset(self):
-        return Post.objects.filter(owner=self.requet.user) # filter login user's post
+        return Post.objects.filter(owner=self.request.user) # filter login user's post
 
 
-class PostUpdateView(LoginRequireMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'slug', 'description', 'content', 'tag']
     success_url = reverse_lazy('blog:index')
 
 
-class PostDeleteView(LoginRequireMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('blog:index')
 

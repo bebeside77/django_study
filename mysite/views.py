@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
+
+
 class HomeView(TemplateView):
     template_name = 'home.html'
 

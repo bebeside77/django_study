@@ -61,6 +61,6 @@ urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/update/$', PostUpdateView.as_view(), name='update'),
 
     # /99/delete/
-    url(r'^(?<pk>[0-9]+)/delete/$', PostDeleteView.as_view(), name='delete'),
+    url(r'^(?P<pk>[0-9]+)/delete/$', PostDeleteView.as_view(), name='delete'),
 
 ]

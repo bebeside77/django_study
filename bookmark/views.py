@@ -3,7 +3,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 
 from bookmark.models import Bookmark
-from mysite.views import LoginRequireMixin
+from mysite.views import LoginRequiredMixin
+
 
 
 # Create your views here.
@@ -16,31 +17,32 @@ class BookmarkDV(DetailView):
     model = Bookmark
 
 
-class BookmarkCreateView(LoginRequireMixin, CreateView):
+class BookmarkCreateView(LoginRequiredMixin, CreateView):
     model = Bookmark
     fields = ['title', 'url']
     success_url = reverse_lazy('bookmark:index')
 
     def form_valid(self, form):
-        form.instance.owner = self.request_user # ¼ÒÀ¯ÀÚ Á¤º¸ ¼³Á¤
+        form.instance.owner = self.request.user # ë¡œê·¸ì¸ ìœ ì €ì˜ ì •ë³´ë¥¼ ì„¤ì •í•¨
         return super(BookmarkCreateView, self).form_valid(form)
 
 
-class BookmarkChangeLV(LoginRequireMixin, ListView):
+class BookmarkChangeLV(LoginRequiredMixin, ListView):
     template_name = 'bookmark/bookmark_change_list.html'
 
-    def get_queryset(self): # È­¸é¿¡ Ãâ·ÂÇÒ ·¹ÄÚµå ¸®½ºÆ® ¹İÈ¯
-        return Bookmark.objects.filter(owner=self.request.user) # ·Î±×ÀÎ À¯ÀúÀÇ µ¥ÀÌÅÍ¸¸ ³ª¿À°Ô ÇÔ
+    def get_queryset(self): # ëŒ€ìƒ ê°€ì ¸ì˜¬ ë•Œ ì‹¤í–‰ë˜ëŠ” ë©”ì†Œë“œ
+        return Bookmark.objects.filter(owner=self.request.user) # í˜„ì¬ ë¡œê·¸ì¸ ìœ ì €ì˜ ë°ì´í„°ë§Œ ê°€ì ¸ì˜´
 
 
-class BookmarkUpdateView(LoginRequireMixin, UpdateView):
+class BookmarkUpdateView(LoginRequiredMixin, UpdateView):
     model = Bookmark
     fields = ['title', 'url']
     success_url = reverse_lazy('bookmark:index')
 
 
-# »èÁ¦ÇÒ °ÍÀÎÁö È®ÀÎÇÏ´Â ÆäÀÌÁö¸¦ º¸¿©ÁÜ
-class BookmarkDeleteView(LoginRequireMixin, DeleteView):
+# get ìœ¼ë¡œ í˜¸ì¶œ ì‹œ í™•ì¸ í˜ì´ì§€ ë³´ì—¬ì¤Œ í…œí”Œë¦¿ëª…ì€ "ëª¨ë¸ëª…_confirm_delete.html"
+# post ìœ¼ë¡œ í˜¸ì¶œ ì‹œ ë ˆì½”ë“œ ì‚­ì œí•˜ê³  success_urlë¡œ ë¦¬ë‹¤ì´ë ‰íŠ¸ ì‹œí‚´
+class BookmarkDeleteView(LoginRequiredMixin, DeleteView):
     model = Bookmark
     success_url = reverse_lazy('bookmark:index')
 

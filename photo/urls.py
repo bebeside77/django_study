@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^album/(?P<pk>[0-9]+)/update/$', AlbumPhotoUV.as_view(), name="album_update"),
 
     # /album/99/delete/
-    url(r'^album/(?<pk>[0-9]+)/delete/$', AlbumDeleteView.as_view(), name="album_delete"),
+    url(r'^album/(?P<pk>[0-9]+)/delete/$', AlbumDeleteView.as_view(), name="album_delete"),
 
     # /photo/add/
     url(r'^photo/add/$', PhotoCreateView.as_view(), name="photo_add"),

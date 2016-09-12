@@ -100,8 +100,10 @@ class AlbumPhotoUV(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(AlbumPhotoUV, self).get_context_data(**kwargs)
         if self.request.POST:
+            # post 인 경우 왜 변수를 넣어주지??
             context['formset'] = PhotoInlineFormSet(self.request.POST, self.request.FILES, instance=self.object)
         else:
+            # 갱신 요청일 경우 폼 변수 넣어줌
             context['formset'] = PhotoInlineFormSet(instance=self.object)
         return context
 
